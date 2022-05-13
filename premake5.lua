@@ -8,12 +8,14 @@ workspace "cppgame"
 project "cppgame"
 
     kind "SharedLib"
+    language "C++"
     location "cppgame/"
 
     targetdir ("%{wks.location}/bin/" .. outputdir .. "/")
     objdir ("%{wks.location}/bin-int/" .. outputdir .. "/")
 
-    files {"src/core/**.cpp", "src/core/**.hpp"}
+    files {"cppgame/src/**.cpp", "cppgame/src/**.h"}
+    includedirs{"cppgame/src"}
 
     filter "system:windows"
         cppdialect "C++17"
@@ -46,23 +48,30 @@ project "cppgame"
  project "game_test"
 
     kind "ConsoleApp"
+    language "C++"
     location "game_test/"
 
     targetdir ("%{wks.location}/bin/" .. outputdir .. "/")
     objdir ("%{wks.location}/bin-int/" .. outputdir .. "/")
 
-    files {"src/**.cpp", "src/**.hpp"}
+    files {"game_test/src/**.cpp", "game_test/src/**.hpp"}
+
+    links { "cppgame" }
+
+    includedirs {
+        "cppgame/src"
+    }
 
     filter "system:windows"
         cppdialect "C++17"
-        staticruntime "off"
+        staticruntime "Off"
         systemversion "latest"
 
         defines {"GAME_PLATFORM_WINDOWS", "GAME_BUILD_EXE"}
 
     filter "system:linux"
         cppdialect "C++17"
-        pic "on"
+        
         systemversion "latest"
 
         defines {"GAME_PLATFORM_LINUX", "GAME_BUILD_EXEC"}
@@ -76,6 +85,7 @@ project "cppgame"
         defines {"RELEASE", "LOG_ON"}
         optimize "On"
         buildoptions "/MT"
+
     filter "configurations:Release"
         defines {"RELEASE", "LOG_OFF"}
         optimize "On"
