@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core/Core.h"
-#include "core/GameApplication.h"
+#include "core/app/Core.h"
+#include "core/app/GameApplication.h"
 
-#include "core/Log.h"
+#include "core/app/Log.h"

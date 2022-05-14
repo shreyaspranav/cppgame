@@ -63,3 +63,4 @@
 
 
 #define NO_PROBLEM 0
+#define BIT(x) 1 << x
