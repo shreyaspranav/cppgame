@@ -22,45 +22,10 @@
 
 		#endif // _MSC_VER
 	#endif
+
+#else #error cppgame supports only Windows!
+
 #endif
-
-#ifdef GAME_PLATFORM_LINUX
-	#ifdef GAME_BUILD_SO
-
-		#ifdef __GNUG__
-			#define CPPGAME_API
-		#endif
-
-	#endif // GAME_BUILD_SL
-
-	#ifdef GAME_BUILD_EXEC
-
-		#ifdef __GNUG__
-			#define CPPGAME_API
-		#endif // __GNUG__
-
-	#endif // GAME_BUILD_EXEC
-
-#endif // GAME_PLATFORM_LINUX
-
-#ifdef GAME_PLATFORM_APPLE
-	#ifdef GAME_BUILD_SL
-
-		#ifdef __clang__
-			#define CPPGAME_API
-		#endif
-
-	#endif // GAME_BUILD_SL
-
-	#ifdef GAME_BUILD_EXEC
-
-		#ifdef __clang__
-			#define CPPGAME_API
-		#endif // __clang__
-
-	#endif // GAME_BUILD_EXEC
-#endif //GAME_PLATFORM_APPLE
-
 
 #define NO_PROBLEM 0
 #define BIT(x) 1 << x

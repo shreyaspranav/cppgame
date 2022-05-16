@@ -1,6 +1,7 @@
 #pragma once
 
-#include <event/Event.h>
+#include <core/event/Event.h>
+#include <sstream>
 
 namespace Vertex {
 

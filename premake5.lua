@@ -5,6 +5,8 @@ workspace "cppgame"
 
     outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+include "deps/glfw"
+
 project "cppgame"
 
     kind "SharedLib"
@@ -24,13 +26,6 @@ project "cppgame"
 
         defines {"GAME_PLATFORM_WINDOWS", "GAME_BUILD_DLL"}
 
-    filter "system:linux"
-        cppdialect "C++17"
-        pic "on"
-        systemversion "latest"
-
-        defines {"GAME_PLATFORM_LINUX", "GAME_BUILD_SO"}
-
     filter "configurations:Debug"
         defines {"DEBUG", "LOG_ON"}
         symbols "On"
@@ -40,7 +35,8 @@ project "cppgame"
         defines {"RELEASE", "LOG_ON"}
         optimize "On"
         buildoptions "/MD"
-    filter "configurations:Release"
+
+    filter "configurations:Distribution"
         defines {"RELEASE", "LOG_OFF"}
         optimize "On"
         buildoptions "/MD"
@@ -54,7 +50,7 @@ project "cppgame"
     targetdir ("%{wks.location}/bin/" .. outputdir .. "/")
     objdir ("%{wks.location}/bin-int/" .. outputdir .. "/")
 
-    files {"game_test/src/**.cpp", "game_test/src/**.hpp"}
+    files {"game_test/src/**.cpp", "game_test/src/**.h"}
 
     links { "cppgame" }
 
@@ -68,13 +64,6 @@ project "cppgame"
         systemversion "latest"
 
         defines {"GAME_PLATFORM_WINDOWS", "GAME_BUILD_EXE"}
-
-    filter "system:linux"
-        cppdialect "C++17"
-        
-        systemversion "latest"
-
-        defines {"GAME_PLATFORM_LINUX", "GAME_BUILD_EXEC"}
 
     filter "configurations:Debug"
         defines {"DEBUG", "LOG_ON"}

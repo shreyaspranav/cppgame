@@ -1,8 +1,8 @@
 #pragma once
 
-#include <core/Core.h>
+#include <core/app/Core.h>
 #include <sstream>
-#include <core/KeyCodes.h>
+#include <core/app/KeyCodes.h>
 #include <core/event/Event.h>
 
 namespace Vertex
