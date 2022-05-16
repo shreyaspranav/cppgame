@@ -17,7 +17,9 @@ project "cppgame"
     objdir ("%{wks.location}/bin-int/" .. outputdir .. "/")
 
     files {"cppgame/src/**.cpp", "cppgame/src/**.h"}
-    includedirs{"cppgame/src"}
+    includedirs{"cppgame/src", "deps/glfw/include"}
+
+    links {"GLFW"}
 
     filter "system:windows"
         cppdialect "C++17"

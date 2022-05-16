@@ -2,6 +2,8 @@
 #include "Log.h"
 #include <string>
 
+#include <GLFW/glfw3.h>
+
 namespace cppgame {
 
 	inline const std::string BoolToString(bool b)
@@ -32,12 +34,11 @@ namespace cppgame {
 	void GameApplication::OnUpdate(float interval)
 	{
 		LOG_COLOR_TEST;
+		LOG_INFO(BoolToString(glfwInit()));
 	}
 	void GameApplication::OnExit()
 	{
+
 	}
-
-	
-
 }
 
