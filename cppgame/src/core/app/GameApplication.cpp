@@ -4,8 +4,6 @@
 
 namespace cppgame {
 
-	Log l;
-
 	inline const std::string BoolToString(bool b)
 	{
 		return b ? "true" : "false";
@@ -33,7 +31,7 @@ namespace cppgame {
 	}
 	void GameApplication::OnUpdate(float interval)
 	{
-		l.ErrorSevere("Idol Idol");
+		LOG_COLOR_TEST;
 	}
 	void GameApplication::OnExit()
 	{

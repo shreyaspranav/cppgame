@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef LOG_ON
+
 
 
 #include <iostream>
@@ -38,17 +38,39 @@ namespace cppgame {
 	{
 
 	public:
-		inline void ColorTest();
+		inline static void ColorTest();
 
-		inline void Error(std::string message);
-		inline void ErrorSevere(std::string message);
-		inline void Warn(std::string message);
-		inline void Info(std::string message);
+		inline static void Error(std::string message);
+		inline static void ErrorSevere(std::string message);
+		inline static void Warn(std::string message);
+		inline static void Info(std::string message);
 
 	};
-}
+
+#ifdef LOG_ON
+
+	#define LOG_ERROR_SEVERE(...)		Log::ErrorSevere(__VA_ARGS__)
+	#define LOG_ERROR(...)				Log::Error(__VA_ARGS__)
+	#define LOG_WARN(...)				Log::Warn(__VA_ARGS__)
+	#define LOG_INFO(...)				Log::Info(__VA_ARGS__)
+	
+	#define LOG_COLOR_TEST				Log::ColorTest()
+
+#elif
+
+	#define LOG_ERROR_SEVERE(...)
+	#define LOG_ERROR(...)		
+	#define LOG_WARN(...)		
+	#define LOG_INFO(...)		
+	
+	#define LOG_COLOR_TEST		
+	
 
 #endif // LOG_ON
+}
+
+
+
 
 
 

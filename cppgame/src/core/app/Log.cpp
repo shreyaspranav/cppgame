@@ -1,5 +1,7 @@
 #include "Log.h"
 
+#ifdef LOG_ON
+
 namespace cppgame {
 	inline void Log::ColorTest()
 	{
@@ -15,3 +17,4 @@ namespace cppgame {
 	inline void Log::Warn(std::string message){  std::cout << YELLOW << "Warning: " << message << RESET << std::endl;  }
 	inline void Log::Info(std::string message){  std::cout << GREEN << "Info: " << message << RESET << std::endl;  }	
 }
+#endif //LOG_ON
