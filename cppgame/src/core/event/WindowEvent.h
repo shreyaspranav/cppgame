@@ -3,7 +3,7 @@
 #include <core/event/Event.h>
 #include <sstream>
 
-namespace Vertex {
+namespace cppgame {
 
 	class WindowCloseEvent : public Event
 	{
@@ -12,6 +12,24 @@ namespace Vertex {
 
 		DEFINE_EVENT_CLASS_TYPE(WindowClose)
 		DEFINE_EVENT_CLASS_CATEGORY(EventCategoryApplication)
+	};
+
+	class WindowFocusEvent : public Event
+	{
+	public:
+		WindowFocusEvent() = default;
+
+		DEFINE_EVENT_CLASS_TYPE(WindowFocus)
+		DEFINE_EVENT_CLASS_CATEGORY(EventCategoryApplication)
+	};
+
+	class WindowLostFocusEvent : public Event
+	{
+	public:
+		WindowLostFocusEvent() = default;
+
+		DEFINE_EVENT_CLASS_TYPE(WindowLostFocus)
+			DEFINE_EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
 	class WindowResizeEvent : public Event
@@ -38,21 +56,26 @@ namespace Vertex {
 
 	};
 
-	class WindowFocusEvent : public Event
+	class WindowMovedEvent :public Event
 	{
+	private:
+		unsigned int x_pos, y_pos;
+
 	public:
-		WindowFocusEvent() = default;
+		WindowMovedEvent(unsigned int xpos, unsigned int ypos)
+			:x_pos(xpos), y_pos(ypos){}
 
-		DEFINE_EVENT_CLASS_TYPE(WindowFocus)
+		inline unsigned int GetXPos() const { return x_pos; }
+		inline unsigned int GetYPos() const { return y_pos; }
+
+		DEFINE_EVENT_CLASS_TYPE(WindowMoved)
 		DEFINE_EVENT_CLASS_CATEGORY(EventCategoryApplication)
-	};
 
-	class WindowLostFocusEvent : public Event
-	{
-	public:
-		WindowLostFocusEvent() = default;
-
-		DEFINE_EVENT_CLASS_TYPE(WindowLostFocus)
-		DEFINE_EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "Window Moved Event: " << x_pos << ", " << y_pos;
+			return ss.str();
+		}
 	};
 }

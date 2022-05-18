@@ -1,5 +1,5 @@
 #pragma once
-namespace Vertex {
+namespace cppgame {
 	enum class KeyCode
 	{
 		KEY_SPACE = 32,

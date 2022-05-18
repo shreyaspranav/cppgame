@@ -6,7 +6,7 @@
 
 #include <sstream>
 
-namespace Vertex
+namespace cppgame
 {
 	class KeyPressedEvent : public Event
 	{

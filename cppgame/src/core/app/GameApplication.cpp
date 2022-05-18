@@ -2,10 +2,12 @@
 #include "Log.h"
 #include <string>
 
-#include <GLFW/glfw3.h>
+#include <core/graphics/window/Window.h>
+#include <core/event/KeyEvent.h>
 
 namespace cppgame {
 
+	std::unique_ptr<Window> window;
 	inline const std::string BoolToString(bool b)
 	{
 		return b ? "true" : "false";
@@ -16,7 +18,7 @@ namespace cppgame {
 		OnCreate();
 		OnStart();
 
-	    OnUpdate(0.0f);
+		for (;;) { OnUpdate(0.0f); }
 
 		
 		OnExit();
@@ -25,20 +27,35 @@ namespace cppgame {
 	{
 
 	}
+
+	void GameApplication::OnEvent(Event& event)
+	{
+		LOG_INFO(event.ToString());
+		if (event.GetEventType() == EventType::WindowClose)
+		{
+			exit(-1);
+		}
+	}
+	
 	void GameApplication::OnCreate()
 	{
+		WindowData data;
+		window = std::unique_ptr<Window>(Window::GetWindow(data));
+		window->WindowCreate();
+		window->SetEventCallbacks(std::bind(&cppgame::GameApplication::OnEvent, this, std::placeholders::_1));
+		window->SetFullScreen(2);
 	}
 	void GameApplication::OnStart()
 	{
 	}
 	void GameApplication::OnUpdate(float interval)
 	{
-		LOG_COLOR_TEST;
-		LOG_INFO(BoolToString(glfwInit()));
+		window->WindowUpdate();
 	}
 	void GameApplication::OnExit()
 	{
 
 	}
+	
 }
 

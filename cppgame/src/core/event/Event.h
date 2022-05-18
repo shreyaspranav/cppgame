@@ -3,14 +3,17 @@
 #include <core/app/Core.h>
 #include <string>
 
-namespace Vertex
+namespace cppgame
 {
 	enum class EventType
 	{
 		None = 0,
 
+		// Monitor Events:
+		MonitorConnect, MonitorDisconnect,
+
 		// Window Events:
-		WindowClose, WindowResize, WindowFocus, WindowLostFocus,
+		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
 
 		// App Events: TODO: Implement them asap
 		AppFixedUpdate, AppUpdate,
@@ -19,17 +22,18 @@ namespace Vertex
 		KeyPressed, KeyReleased,
 
 		// Mouse Events:
-		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
+		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled, MouseEntered, MouseExited
 	};
 
 	enum EventCategory
 	{
 		None = 0,
-		EventCategoryApplication	 = BIT(0),
-		EventCategoryInput			 = BIT(1),
-		EventCategoryKeyBoard		 = BIT(2),
-		EventCategoryMouse			 = BIT(3),
-		EventCategoryMouseButton	 = BIT(4)
+		EventCategorySystem			 = BIT(0),
+		EventCategoryApplication	 = BIT(1),
+		EventCategoryInput			 = BIT(2),
+		EventCategoryKeyBoard		 = BIT(3),
+		EventCategoryMouse			 = BIT(4),
+		EventCategoryMouseButton	 = BIT(5)
 	};
 
 	#define DEFINE_EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::type; }  \

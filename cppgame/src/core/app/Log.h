@@ -1,12 +1,7 @@
 #pragma once
 
-
-
-
 #include <iostream>
 #include <string>
-#include <chrono>
-#include <ctime>
 
 #include "Core.h"
 
@@ -46,29 +41,28 @@ namespace cppgame {
 		inline static void Info(std::string message);
 
 	};
+}
 
 #ifdef LOG_ON
 
-	#define LOG_ERROR_SEVERE(...)		Log::ErrorSevere(__VA_ARGS__)
-	#define LOG_ERROR(...)				Log::Error(__VA_ARGS__)
-	#define LOG_WARN(...)				Log::Warn(__VA_ARGS__)
-	#define LOG_INFO(...)				Log::Info(__VA_ARGS__)
-	
-	#define LOG_COLOR_TEST				Log::ColorTest()
+#define LOG_ERROR_SEVERE(...)		cppgame::Log::ErrorSevere(__VA_ARGS__)
+#define LOG_ERROR(...)				cppgame::Log::Error(__VA_ARGS__)
+#define LOG_WARN(...)				cppgame::Log::Warn(__VA_ARGS__)
+#define LOG_INFO(...)				cppgame::Log::Info(__VA_ARGS__)
 
-#elif
+#define LOG_COLOR_TEST				cppgame::Log::ColorTest()
 
-	#define LOG_ERROR_SEVERE(...)
-	#define LOG_ERROR(...)		
-	#define LOG_WARN(...)		
-	#define LOG_INFO(...)		
-	
-	#define LOG_COLOR_TEST		
-	
+#else 
+
+#define LOG_ERROR_SEVERE(...)
+#define LOG_ERROR(...)		
+#define LOG_WARN(...)		
+#define LOG_INFO(...)		
+
+#define LOG_COLOR_TEST		
+
 
 #endif // LOG_ON
-}
-
 
 
 

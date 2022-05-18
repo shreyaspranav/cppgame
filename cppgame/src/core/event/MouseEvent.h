@@ -5,7 +5,7 @@
 #include <core/app/KeyCodes.h>
 #include <core/event/Event.h>
 
-namespace Vertex
+namespace cppgame
 {
 	class MouseMovedEvent : public Event
 	{
@@ -77,12 +77,12 @@ namespace Vertex
 		DEFINE_EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouse)
 	};
 
-	class MouseButtonScrolledEvent : public Event
+	class MouseScrolledEvent : public Event
 	{
 	public:
 		enum ScrollDir { SCROLL_UP = 1, SCROLL_DOWN = -1 };
 
-		MouseButtonScrolledEvent(ScrollDir dir): dir(dir)  {}
+		MouseScrolledEvent(ScrollDir dir): dir(dir)  {}
 
 		inline ScrollDir getScrollDir() { return dir; }
 
@@ -105,5 +105,23 @@ namespace Vertex
 		DEFINE_EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouse)
 	private:
 		ScrollDir dir;
+	};
+
+	class MouseEnteredEvent : public Event
+	{
+	public:
+		MouseEnteredEvent() = default;
+
+		DEFINE_EVENT_CLASS_TYPE(MouseEntered)
+		DEFINE_EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouse)
+	};
+
+	class MouseExitedEvent : public Event
+	{
+	public:
+		MouseExitedEvent() = default;
+
+		DEFINE_EVENT_CLASS_TYPE(MouseExited)
+		DEFINE_EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouse)
 	};
 }
