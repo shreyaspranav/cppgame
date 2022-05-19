@@ -265,7 +265,14 @@ namespace cppgame
 
 	void Window::SetFullScreen(unsigned int monitor)
 	{
-		glfwSetWindowMonitor(m_window, mon_data.monitors[monitor - 1], 0, 0, m_data.window_width, m_data.window_height, GLFW_DONT_CARE);
+		if (mon_data.count >= monitor)
+			glfwSetWindowMonitor(m_window, mon_data.monitors[monitor - 1], 0, 0, m_data.window_width, m_data.window_height, GLFW_DONT_CARE);
+		else
+		{
+			std::stringstream ss;
+			ss << "Monitor No " << monitor << " not found!";
+			LOG_ERROR(ss.str());
+		}
 	}
 
 	void Window::SetWindowed()
