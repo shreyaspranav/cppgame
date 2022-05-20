@@ -17,7 +17,12 @@ project "cppgame"
     objdir ("%{wks.location}/bin-int/" .. outputdir .. "/")
 
     files {"cppgame/src/**.cpp", "cppgame/src/**.h"}
-    includedirs{"cppgame/src", "deps/glfw/include", "deps/stb/"}
+    includedirs{
+        "cppgame/src", 
+        "deps/glfw/include", 
+        "deps/stb/",
+        "deps/spdlog/include"
+    }
 
     links {"GLFW"}
 
@@ -57,7 +62,8 @@ project "cppgame"
     links { "cppgame" }
 
     includedirs {
-        "cppgame/src"
+        "cppgame/src",
+        "deps/spdlog/include"
     }
 
     filter "system:windows"

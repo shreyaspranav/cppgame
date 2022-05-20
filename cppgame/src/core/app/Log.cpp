@@ -1,20 +1,14 @@
 #include "Log.h"
 
-#ifdef LOG_ON
+namespace cppgame
+{
+	std::shared_ptr<spdlog::logger> Log::s_CoreLogger;
 
-namespace cppgame {
-	inline void Log::ColorTest()
+	void Log::InitLoggger()
 	{
-		std::cout << RED << "L" << GREEN << "o" << YELLOW << "g "
-			<< BLUE << "T" << MAGENTA << "e" << CYAN << "s" << WHITE << "t!" << RESET << std::endl;
+		spdlog::set_pattern("%^[%T] %n: %v%$");
+		s_CoreLogger = spdlog::stdout_color_mt("cppgame");
+		s_CoreLogger->set_level(spdlog::level::trace);
 
-		std::cout << BOLDRED << "L" << BOLDGREEN << "o" << BOLDYELLOW << "g "
-			<< BOLDBLUE << "T" << BOLDMAGENTA << "e" << BOLDCYAN << "s" << BOLDWHITE << "t!" << RESET << std::endl;
 	}
-
-	inline void Log::Error(std::string message){  std::cout << RED << "Error: " << message << RESET << std::endl;  }
-	inline void Log::ErrorSevere(std::string message){  std::cout << BOLDMAGENTA << "Error SEVERE: " << message << RESET << std::endl;  }
-	inline void Log::Warn(std::string message){  std::cout << YELLOW << "Warning: " << message << RESET << std::endl;  }
-	inline void Log::Info(std::string message){  std::cout << GREEN << "Info: " << message << RESET << std::endl;  }	
 }
-#endif //LOG_ON
