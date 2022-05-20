@@ -31,10 +31,7 @@ namespace cppgame {
 	void GameApplication::OnEvent(Event& event)
 	{
 		LOG_INFO(event.ToString());
-		if (event.GetEventType() == EventType::WindowClose)
-		{
-			exit(-1);
-		}
+		if (event.GetEventType() == EventType::WindowClose) { exit(0); }
 	}
 	
 	void GameApplication::OnCreate()
@@ -43,7 +40,7 @@ namespace cppgame {
 		window = std::unique_ptr<Window>(Window::GetWindow(data));
 		window->WindowCreate();
 		window->SetEventCallbacks(std::bind(&cppgame::GameApplication::OnEvent, this, std::placeholders::_1));
-		window->SetFullScreen(2);
+		window->SetWindowIcon("icon.png");
 	}
 	void GameApplication::OnStart()
 	{

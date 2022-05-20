@@ -17,7 +17,7 @@ project "cppgame"
     objdir ("%{wks.location}/bin-int/" .. outputdir .. "/")
 
     files {"cppgame/src/**.cpp", "cppgame/src/**.h"}
-    includedirs{"cppgame/src", "deps/glfw/include"}
+    includedirs{"cppgame/src", "deps/glfw/include", "deps/stb/"}
 
     links {"GLFW"}
 

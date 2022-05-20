@@ -6,6 +6,9 @@
 #include <core/event/MouseEvent.h>
 #include <core/event/MonitorEvent.h>
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 namespace cppgame
 {
 	Window::Window(WindowData& data)
@@ -225,10 +228,7 @@ namespace cppgame
 		});
 
 	}
-	EventCallbackFn Window::GetEventCallbackFn()
-	{
-		return EventCallbackFn();
-	}
+
 	void Window::WindowCreate()
 	{
 		if(m_data.fullscreen){
@@ -280,37 +280,45 @@ namespace cppgame
 		glfwSetWindowMonitor(m_window, NULL, 0, 0, m_data.window_width, m_data.window_height, GLFW_DONT_CARE);
 	}
 
-    unsigned int Window::GetWidth()
+	void Window::SetWindowIcon(std::string path)
 	{
-		return 0;
+		GLFWimage images[1];
+		images[0].pixels = stbi_load(path.c_str(), &images[0].width, &images[0].height, 0, 4);
+
+		glfwSetWindowIcon(m_window, 1, images);
+		stbi_image_free(images[0].pixels);
 	}
-	unsigned int Window::GetHeight()
-	{
-		return 0;
-	}
-	std::string Window::GetTitle()
-	{
-		return std::string();
-	}
-	bool Window::IsVsync()
-	{
-		return false;
-	}
-	bool Window::IsFullScreen()
-	{
-		return false;
-	}
+
 	void Window::SetWidth(unsigned int width)
 	{
+		m_data.window_width = width;
+		glfwSetWindowSize(m_window, m_data.window_width, m_data.window_height);
 	}
 	void Window::SetHeight(unsigned int height)
 	{
+		m_data.window_height = height;
+		glfwSetWindowSize(m_window, m_data.window_width, m_data.window_height);
 	}
 	void Window::SetTitle(std::string title)
 	{
+		m_data.window_title = title;
+		glfwSetWindowTitle(m_window, title.c_str());
 	}
 	void Window::SetVsync(bool vsync)
 	{
+		m_data.vsync = vsync;
+		if(vsync){
+			glfwSwapInterval(1);
+		}
+		else {
+			glfwSwapInterval(0);
+		}
+	}
+
+	bool Window::IsFullScreen() 
+	{
+		if (glfwGetWindowMonitor(m_window) == NULL){ return 0; }
+		else { return 1; }
 	}
 	
 }

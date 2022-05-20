@@ -13,11 +13,12 @@ namespace cppgame {
 	struct WindowData {
 		unsigned int window_width, window_height;
 		std::string window_title;
+
 		bool fullscreen, vsync;
 		EventCallbackFn fn;
 
-		WindowData(unsigned int width = 1600,
-					unsigned int height = 900,
+		WindowData(unsigned int width = 1024,
+					unsigned int height = 576,
 					std::string title = "cppgame",
 					bool fullscreen = 0, bool vsync = 0): window_width(width), window_height(height), window_title(title),
 												fullscreen(fullscreen), vsync() {}
@@ -44,27 +45,28 @@ namespace cppgame {
 		static Window* GetWindow(WindowData& data);
 
 		void SetEventCallbacks(EventCallbackFn fn);
-		inline EventCallbackFn GetEventCallbackFn();
+		inline EventCallbackFn GetEventCallbackFn() { return m_data.fn; }
 
 		void WindowCreate();
 		void WindowUpdate();
 		void WindowDestroy();
 
-		unsigned int GetWidth();
-		unsigned int GetHeight();
-		std::string GetTitle();
+		inline unsigned int GetWidth() { return m_data.window_width; }
+		inline unsigned int GetHeight() { return m_data.window_height; }
+		inline std::string GetTitle() { return m_data.window_title; }
 
-		bool IsVsync();
+		inline bool IsVsync() { return m_data.vsync; }
 		bool IsFullScreen();
 
 		void SetWidth(unsigned int width);
 		void SetHeight(unsigned int height);
 		void SetTitle(std::string title);
 
-		inline void SetVsync(bool vsync);
+		void SetVsync(bool vsync);
 		void SetFullScreen(unsigned int monitor);
 		void SetWindowed();
 
+		void SetWindowIcon(std::string path);
 	};
 }
 
