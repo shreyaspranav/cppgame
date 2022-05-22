@@ -3,7 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <string>
 #include <functional>
-
+#include <core/app/KeyCodes.h>
 #include <core/event/Event.h>
 
 namespace cppgame {
@@ -37,6 +37,7 @@ namespace cppgame {
 		MonitorData mon_data;
 
 		GLFWwindow* m_window;
+		inline static GLFWwindow* w;
 		Window(WindowData& data);
 
 	public:
@@ -67,6 +68,15 @@ namespace cppgame {
 		void SetWindowed();
 
 		void SetWindowIcon(std::string path);
+
+		inline static GLFWwindow* GetRawWindowPointer() { return w; }
+	};
+
+	class Input {
+	public:
+		static bool IsKeyPressed(KeyCode k);
+		static double GetMouseX();
+		static double GetMouseY();
 	};
 }
 

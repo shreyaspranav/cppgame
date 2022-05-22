@@ -256,6 +256,8 @@ namespace cppgame
 		
 		glfwSetWindowPos(m_window, (mode->width - m_data.window_width) / 2, (mode->height - m_data.window_height) / 2);
 
+		w = m_window;
+
 		glfwShowWindow(m_window);
 	}
 	void Window::WindowUpdate()
@@ -334,4 +336,28 @@ namespace cppgame
 		else { return 1; }
 	}
 	
+	bool Input::IsKeyPressed(KeyCode k)
+	{
+		if (glfwGetKey(Window::GetRawWindowPointer(), (int)k) == GLFW_PRESS)
+			return true;
+		else
+			return false;
+	}
+
+	double Input::GetMouseX()
+	{
+		double xpos;
+		glfwGetCursorPos(Window::GetRawWindowPointer(), &xpos, 0);
+
+		return xpos;
+	}
+
+	double Input::GetMouseY()
+	{
+		double ypos;
+		glfwGetCursorPos(Window::GetRawWindowPointer(), 0, &ypos);
+
+		return ypos;
+	}
+
 }

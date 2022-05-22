@@ -61,7 +61,9 @@ namespace cppgame {
 		GameApplication::OnCreate();
 		GameApplication::OnStart();
 
-		for (;;) { GameApplication::OnUpdate(0.0f); }
+		for (;;) {
+			GameApplication::OnUpdate(0.0f); 
+		}
 
 		GameApplication::OnExit();
 	}
