@@ -42,7 +42,7 @@ namespace cppgame {
 		window = std::unique_ptr<Window>(Window::GetWindow(data));
 		window->WindowCreate();
 		window->SetEventCallbacks(std::bind(&cppgame::GameApplication::OnEvent, this, std::placeholders::_1));
-		//window->SetWindowIcon("icon.png");
+		window->SetWindowIcon("icon.png");
 		LOG_ERROR_SEVERE("Test");
 	}
 	void GameApplication::OnStart()

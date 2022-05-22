@@ -250,6 +250,10 @@ namespace cppgame
 		glfwSetWindowUserPointer(m_window, &m_data);
 		glfwSetMonitorUserPointer(glfwGetPrimaryMonitor(), &mon_data);
 
+		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+		
+		glfwSetWindowPos(m_window, (mode->width - m_data.window_width) / 2, (mode->height - m_data.window_height) / 2);
+
 		glfwShowWindow(m_window);
 	}
 	void Window::WindowUpdate()
@@ -285,7 +289,14 @@ namespace cppgame
 		GLFWimage images[1];
 		images[0].pixels = stbi_load(path.c_str(), &images[0].width, &images[0].height, 0, 4);
 
-		glfwSetWindowIcon(m_window, 1, images);
+		if (images[0].pixels != NULL) {
+			glfwSetWindowIcon(m_window, 1, images);
+		}
+		else {
+			LOG_ERROR("Failed to read icon file!");
+		}
+
+		
 		stbi_image_free(images[0].pixels);
 	}
 

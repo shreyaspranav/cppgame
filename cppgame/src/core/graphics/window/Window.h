@@ -17,8 +17,8 @@ namespace cppgame {
 		bool fullscreen, vsync;
 		EventCallbackFn fn;
 
-		WindowData(unsigned int width = 1024,
-					unsigned int height = 576,
+		WindowData(unsigned int width = 1280,
+					unsigned int height = 720,
 					std::string title = "cppgame",
 					bool fullscreen = 0, bool vsync = 0): window_width(width), window_height(height), window_title(title),
 												fullscreen(fullscreen), vsync() {}
