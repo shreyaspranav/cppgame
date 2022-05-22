@@ -15,13 +15,7 @@ namespace cppgame {
 
 	GameApplication::GameApplication()
 	{
-		OnCreate();
-		OnStart();
-
-		for (;;) { OnUpdate(0.0f); }
-
-		
-		OnExit();
+		INIT_LOGGER;
 	}
 	GameApplication::~GameApplication()
 	{
@@ -36,26 +30,40 @@ namespace cppgame {
 	
 	void GameApplication::OnCreate()
 	{
-		INIT_LOGGER;
-
-		WindowData data;
-		window = std::unique_ptr<Window>(Window::GetWindow(data));
-		window->WindowCreate();
-		window->SetEventCallbacks(std::bind(&cppgame::GameApplication::OnEvent, this, std::placeholders::_1));
-		window->SetWindowIcon("icon.png");
-		LOG_ERROR_SEVERE("Test");
+		OnCreate();
 	}
 	void GameApplication::OnStart()
 	{
+		OnStart();
+
+		LOG_INFO(width);
+		WindowData data(width, height, title, fullscreen, vsync);
+
+		window = std::unique_ptr<Window>(Window::GetWindow(data));
+		window->WindowCreate();
+
+		window->SetEventCallbacks(std::bind(&cppgame::GameApplication::OnEvent, this, std::placeholders::_1));
+		window->SetWindowIcon("icon.png");
+
+		LOG_ERROR_SEVERE("Test");
 	}
 	void GameApplication::OnUpdate(float interval)
 	{
+		OnUpdate(interval);
 		window->WindowUpdate();
 	}
 	void GameApplication::OnExit()
 	{
-
+		OnExit();
 	}
 	
+	void GameApplication::Run() {
+		GameApplication::OnCreate();
+		GameApplication::OnStart();
+
+		for (;;) { GameApplication::OnUpdate(0.0f); }
+
+		GameApplication::OnExit();
+	}
 }
 

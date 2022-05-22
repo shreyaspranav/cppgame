@@ -17,6 +17,12 @@ namespace cppgame
 		virtual void OnUpdate(float interval);
 		virtual void OnExit();
 
+		void Run();
+
 		virtual void OnEvent(Event& event);
+
+		unsigned int width = 1280, height = 720;
+		std::string title = "cppgame";
+		bool vsync = 0, fullscreen = 0;
 	};
 }

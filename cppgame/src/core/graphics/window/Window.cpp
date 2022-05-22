@@ -245,6 +245,8 @@ namespace cppgame
 			LOG_ERROR_SEVERE("Failed to create a GLFW window!");
 		}
 
+		LOG_INFO("Window Created! Width = {0}, height = {1}, title = {2}", m_data.window_width, m_data.window_height, m_data.window_title);
+
 		mon_data.monitors = glfwGetMonitors(&mon_data.count);
 		
 		glfwSetWindowUserPointer(m_window, &m_data);
