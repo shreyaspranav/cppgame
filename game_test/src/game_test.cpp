@@ -3,9 +3,6 @@
 #include <chrono>
 
 
-class game_test : public cppgame::GameApplication
-{
-
 class TestLayer : public cppgame::Layer
 {
 
@@ -31,6 +28,9 @@ public:
 	virtual void OnRender() override {}
 };
 
+class game_test : public cppgame::GameApplication
+{
+
 public:
 
 	game_test() { }
@@ -53,9 +53,7 @@ public:
 
 	void OnUpdate(double interval) override
 	{
-
-		if(cppgame::Input::IsKeyPressed(cppgame::KeyCode::KEYPAD_1))
-			LOG_ERROR("Phuc!");
+;
 	}
 
 	void OnRender() override

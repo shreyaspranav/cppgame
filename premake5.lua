@@ -6,6 +6,7 @@ workspace "cppgame"
     outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 include "deps/glfw"
+include "deps/glad"
 
 project "cppgame"
 
@@ -24,7 +25,7 @@ project "cppgame"
         "deps/spdlog/include"
     }
 
-    links {"GLFW"}
+    links {"GLFW", "glad"}
 
     filter "system:windows"
         cppdialect "C++17"
@@ -63,7 +64,8 @@ project "cppgame"
 
     includedirs {
         "cppgame/src",
-        "deps/spdlog/include"
+        "deps/spdlog/include",
+        "deps/glfw/include"
     }
 
     filter "system:windows"
