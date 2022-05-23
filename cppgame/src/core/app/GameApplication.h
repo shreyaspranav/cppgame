@@ -14,7 +14,11 @@ namespace cppgame
 
 		virtual void OnCreate();
 		virtual void OnStart();
-		virtual void OnUpdate(float interval);
+
+		virtual void OnInput();
+		virtual void OnUpdate(double interval);
+		virtual void OnRender();
+
 		virtual void OnExit();
 
 		void Run();

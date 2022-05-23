@@ -5,6 +5,7 @@
 #include <functional>
 #include <core/app/KeyCodes.h>
 #include <core/event/Event.h>
+#include <core/app/Log.h>
 
 namespace cppgame {
 
@@ -30,11 +31,12 @@ namespace cppgame {
 		EventCallbackFn fn;
 	};
 
-	class Window
+	class CPPGAME_API Window
 	{
 	private:
 		WindowData m_data;
 		MonitorData mon_data;
+		inline static bool glfw_init = 0;
 
 		GLFWwindow* m_window;
 		inline static GLFWwindow* w;
@@ -69,10 +71,22 @@ namespace cppgame {
 
 		void SetWindowIcon(std::string path);
 
-		inline static GLFWwindow* GetRawWindowPointer() { return w; }
+		inline double GetUpTime(){
+			if (glfw_init)
+				return glfwGetTime();
+			else
+				return 0.0;
+		}
+
+		inline static GLFWwindow* GetRawWindowPointer() { 
+			if (glfw_init)
+				return w;
+			else
+				return nullptr;
+		}
 	};
 
-	class Input {
+	class CPPGAME_API Input {
 	public:
 		static bool IsKeyPressed(KeyCode k);
 		static double GetMouseX();

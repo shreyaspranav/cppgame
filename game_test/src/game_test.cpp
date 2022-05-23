@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cppgame.h>
+#include <chrono>
 
 
 class game_test : public cppgame::GameApplication
@@ -13,15 +14,27 @@ public:
 	void OnCreate() override
 	{
 		LOG_ERROR("Phuc!");
-		width = 720;
 	}
 
 	void OnStart() override
 	{
 	}
 
-	void OnUpdate(float interval) override
+	void OnInput() override
 	{
+
+	}
+
+	void OnUpdate(double interval) override
+	{
+
+		if(cppgame::Input::IsKeyPressed(cppgame::KeyCode::KEYPAD_1))
+			LOG_ERROR("Phuc!");
+	}
+
+	void OnRender() override
+	{
+
 	}
 
 	void OnExit() override

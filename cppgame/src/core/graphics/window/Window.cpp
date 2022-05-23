@@ -71,8 +71,8 @@ namespace cppgame
 		glfwSetErrorCallback([](int error_code, const char* description) 
 		{
 			std::string des = description;
-			LOG_ERROR("GLFW Error: " + error_code);
-			LOG_ERROR(des);
+			//LOG_ERROR("GLFW Error: " + error_code);
+			//LOG_ERROR(des);
 		});
 
 		glfwSetWindowCloseCallback(m_window, [](GLFWwindow* window) 
@@ -244,6 +244,7 @@ namespace cppgame
 			Window::WindowDestroy();
 			LOG_ERROR_SEVERE("Failed to create a GLFW window!");
 		}
+		glfw_init = 1;
 
 		LOG_INFO("Window Created! Width = {0}, height = {1}, title = {2}", m_data.window_width, m_data.window_height, m_data.window_title);
 

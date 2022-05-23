@@ -47,7 +47,18 @@ namespace cppgame {
 
 		LOG_ERROR_SEVERE("Test");
 	}
-	void GameApplication::OnUpdate(float interval)
+
+	void GameApplication::OnInput()
+	{
+		OnInput();
+	}
+
+	void GameApplication::OnRender()
+	{
+		OnRender();
+	}
+
+	void GameApplication::OnUpdate(double interval)
 	{
 		OnUpdate(interval);
 		window->WindowUpdate();
@@ -61,11 +72,25 @@ namespace cppgame {
 		GameApplication::OnCreate();
 		GameApplication::OnStart();
 
-		for (;;) {
-			GameApplication::OnUpdate(0.0f); 
+		double lastTime = window->GetUpTime();
+		while (true)
+		{
+			double current = window->GetUpTime();
+			double elapsed = current - lastTime;
+
+			GameApplication::OnInput();
+			GameApplication::OnUpdate(elapsed); 
+			GameApplication::OnRender();
+
+			lastTime = current;
+
+			LOG_INFO(elapsed);
 		}
 
 		GameApplication::OnExit();
+
+		
+
 	}
 }
 
