@@ -6,6 +6,31 @@
 class game_test : public cppgame::GameApplication
 {
 
+class TestLayer : public cppgame::Layer
+{
+
+public:
+
+	TestLayer() {
+
+	}
+
+	virtual void OnAttach() override {
+		LOG_WARN("Layer Attached!");
+	}
+	virtual void OnDetach()override {
+		LOG_WARN("Layer Dettached!");
+	}
+
+	virtual void OnInput() override {
+
+	}
+	virtual void OnUpdate(double timestep) override {
+		LOG_WARN("FPS: {0}", 1.0 / timestep);
+	}
+	virtual void OnRender() override {}
+};
+
 public:
 
 	game_test() { }
@@ -13,7 +38,8 @@ public:
 
 	void OnCreate() override
 	{
-		LOG_ERROR("Phuc!");
+		window_title = "Game Window";
+		PushLayer(new TestLayer());
 	}
 
 	void OnStart() override

@@ -8,10 +8,6 @@
 namespace cppgame {
 
 	std::unique_ptr<Window> window;
-	inline const std::string BoolToString(bool b)
-	{
-		return b ? "true" : "false";
-	}
 
 	GameApplication::GameApplication()
 	{
@@ -25,7 +21,10 @@ namespace cppgame {
 	void GameApplication::OnEvent(Event& event)
 	{
 		LOG_INFO(event.ToString());
-		if (event.GetEventType() == EventType::WindowClose) { exit(0); }
+		if (event.GetEventType() == EventType::WindowClose) { 
+			for (int i = 1; i <= stack.size(); i++) { stack[i - 1]->OnDetach(); }
+			exit(0); 
+		}
 	}
 	
 	void GameApplication::OnCreate()
@@ -36,11 +35,21 @@ namespace cppgame {
 	{
 		OnStart();
 
-		LOG_INFO(width);
-		WindowData data(width, height, title, fullscreen, vsync);
+		if (fullscreen == 0) {
+			WindowData data(window_width, window_height, window_title, 0, vsync);
 
-		window = std::unique_ptr<Window>(Window::GetWindow(data));
-		window->WindowCreate();
+			window = std::unique_ptr<Window>(Window::GetWindow(data));
+			window->WindowCreate();
+		}
+
+		else {
+			WindowData data(window_width, window_height, window_title, 0, vsync);
+
+			window = std::unique_ptr<Window>(Window::GetWindow(data));
+			window->WindowCreate();
+			window->SetFullScreen(fullscreen);
+		}
+		
 
 		window->SetEventCallbacks(std::bind(&cppgame::GameApplication::OnEvent, this, std::placeholders::_1));
 		window->SetWindowIcon("icon.png");
@@ -51,16 +60,20 @@ namespace cppgame {
 	void GameApplication::OnInput()
 	{
 		OnInput();
+		for (int i = 1; i <= stack.size(); i++){ stack[i - 1]->OnInput(); }
 	}
 
 	void GameApplication::OnRender()
 	{
 		OnRender();
+		for (int i = 1; i <= stack.size(); i++) { stack[i - 1]->OnRender(); }
 	}
 
 	void GameApplication::OnUpdate(double interval)
 	{
 		OnUpdate(interval);
+		for (int i = 1; i <= stack.size(); i++) { stack[i - 1]->OnUpdate(interval); }
+
 		window->WindowUpdate();
 	}
 	void GameApplication::OnExit()
@@ -71,7 +84,7 @@ namespace cppgame {
 	void GameApplication::Run() {
 		GameApplication::OnCreate();
 		GameApplication::OnStart();
-
+		 
 		double lastTime = window->GetUpTime();
 		while (true)
 		{
@@ -84,13 +97,23 @@ namespace cppgame {
 
 			lastTime = current;
 
-			LOG_INFO(elapsed);
+			LOG_INFO("FPS: {0}", 1.0 / elapsed);
 		}
 
 		GameApplication::OnExit();
 
-		
+	}
 
+	void GameApplication::PushLayer(Layer* l)
+	{
+		stack.push_back(l);
+		l->OnAttach();
+	}
+
+	void GameApplication::PopLayer()
+	{
+		stack.pop_back();
+		stack.back()->OnDetach();
 	}
 }
 
