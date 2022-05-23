@@ -4,6 +4,7 @@
 #include <core/event/Event.h>
 #include <vector>
 #include "Layer.h"
+#include <core/graphics/opengl/Renderer.h>
 
 namespace cppgame
 {
@@ -19,7 +20,7 @@ namespace cppgame
 
 		virtual void OnInput();
 		virtual void OnUpdate(double interval);
-		virtual void OnRender();
+		virtual void OnRender(Renderer r);
 
 		virtual void OnExit();
 
@@ -37,5 +38,6 @@ namespace cppgame
 
 	private:
 		LayerStack stack;
+		Renderer r;
 	};
 }

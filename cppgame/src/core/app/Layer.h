@@ -4,6 +4,8 @@
 #include <string>
 #include <core/event/Event.h>
 
+#include <core/graphics/opengl/Renderer.h>
+
 namespace cppgame {
 	class CPPGAME_API Layer
 	{
@@ -16,7 +18,7 @@ namespace cppgame {
 
 		virtual void OnInput() {}
 		virtual void OnUpdate(double timestep) {}
-		virtual void OnRender() {}
+		virtual void OnRender(Renderer r) {}
 
 		virtual void OnEvent(Event& event) {}
 

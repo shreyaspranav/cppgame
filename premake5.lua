@@ -22,10 +22,13 @@ project "cppgame"
         "cppgame/src", 
         "deps/glfw/include", 
         "deps/stb/",
-        "deps/spdlog/include"
+        "deps/spdlog/include",
+        "deps/glad/include"
     }
 
     links {"GLFW", "glad"}
+
+    defines {"GLFW_INCLUDE_NONE"}
 
     filter "system:windows"
         cppdialect "C++17"

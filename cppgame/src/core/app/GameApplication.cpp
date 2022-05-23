@@ -20,7 +20,7 @@ namespace cppgame {
 
 	void GameApplication::OnEvent(Event& event)
 	{
-		LOG_INFO(event.ToString());
+		LOG_TRACE(event.ToString());
 		if (event.GetEventType() == EventType::WindowClose) { 
 			for (int i = 1; i <= stack.size(); i++) { stack[i - 1]->OnDetach(); }
 			exit(0); 
@@ -54,7 +54,8 @@ namespace cppgame {
 		window->SetEventCallbacks(std::bind(&cppgame::GameApplication::OnEvent, this, std::placeholders::_1));
 		window->SetWindowIcon("icon.png");
 
-		LOG_ERROR_SEVERE("Test");
+		r = Renderer(window->GetRawWindowPointer());
+		r.CreateContext();
 	}
 
 	void GameApplication::OnInput()
@@ -63,17 +64,17 @@ namespace cppgame {
 		for (int i = 1; i <= stack.size(); i++){ stack[i - 1]->OnInput(); }
 	}
 
-	void GameApplication::OnRender()
+	void GameApplication::OnRender(Renderer r)
 	{
-		OnRender();
-		for (int i = 1; i <= stack.size(); i++) { stack[i - 1]->OnRender(); }
+		r.RenderClear();
+		OnRender(r);
+		for (int i = 1; i <= stack.size(); i++) { stack[i - 1]->OnRender(r); }
 	}
 
 	void GameApplication::OnUpdate(double interval)
 	{
 		OnUpdate(interval);
 		for (int i = 1; i <= stack.size(); i++) { stack[i - 1]->OnUpdate(interval); }
-
 		window->WindowUpdate();
 	}
 	void GameApplication::OnExit()
@@ -93,11 +94,9 @@ namespace cppgame {
 
 			GameApplication::OnInput();
 			GameApplication::OnUpdate(elapsed); 
-			GameApplication::OnRender();
+			GameApplication::OnRender(r);
 
 			lastTime = current;
-
-			LOG_INFO("FPS: {0}", 1.0 / elapsed);
 		}
 
 		GameApplication::OnExit();

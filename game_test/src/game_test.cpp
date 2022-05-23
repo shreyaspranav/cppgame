@@ -23,9 +23,9 @@ public:
 
 	}
 	virtual void OnUpdate(double timestep) override {
-		LOG_WARN("FPS: {0}", 1.0 / timestep);
+
 	}
-	virtual void OnRender() override {}
+	virtual void OnRender(cppgame::Renderer r) override {}
 };
 
 class game_test : public cppgame::GameApplication
@@ -56,7 +56,7 @@ public:
 ;
 	}
 
-	void OnRender() override
+	void OnRender(cppgame::Renderer r) override
 	{
 
 	}
